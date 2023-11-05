@@ -1,0 +1,96 @@
+USE
+To use pagination with data from a database, you'll need a backend language (like PHP, Python, Node.js, etc.) to handle the database queries and pagination logic. Here, I'll provide an example using PHP and MySQL.
+
+1. **Set Up Your Database**:
+
+   Create a database table to store your content. For example:
+
+   ```sql
+   CREATE TABLE my_content (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       heading VARCHAR(255),
+       text TEXT
+   );
+   ```
+
+   Insert some sample data into your table.
+
+2. **Create a PHP Script to Retrieve Data**:
+
+   Create a PHP script (`getData.php`) to retrieve a specific range of rows based on the page number and items per page.
+
+   ```php
+   <?php
+   $servername = "your_server_name";
+   $username = "your_username";
+   $password = "your_password";
+   $dbname = "your_database_name";
+
+   // Establish connection
+   $conn = new mysqli($servername, $username, $password, $dbname);
+
+   // Check connection
+   if ($conn->connect_error) {
+       die("Connection failed: " . $conn->connect_error);
+   }
+
+   // Pagination variables
+   $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get current page number
+   $itemsPerPage = 5; // Set number of items per page
+
+   // Calculate the starting row for the current page
+   $start = ($page - 1) * $itemsPerPage;
+
+   // Query to retrieve data for the current page
+   $sql = "SELECT * FROM my_content LIMIT $start, $itemsPerPage";
+   $result = $conn->query($sql);
+
+   if ($result->num_rows > 0) {
+       while($row = $result->fetch_assoc()) {
+           echo '<div class="row">';
+           echo '<div class="col-md-4">';
+           echo '<h3>' . $row["heading"] . '</h3>';
+           echo '<p>' . $row["text"] . '</p>';
+           echo '</div>';
+           echo '<div class="col-md-8">';
+           echo '<div class="btn-toolbar" style="overflow-y: auto; max-height: 300px;">';
+           // Add buttons or content here for the row
+           echo '</div>';
+           echo '</div>';
+           echo '</div>';
+       }
+   } else {
+       echo "0 results";
+   }
+
+   $conn->close();
+   ?>
+   ```
+
+   Replace `'your_server_name'`, `'your_username'`, `'your_password'`, and `'your_database_name'` with your actual database credentials.
+
+3. **Integrate Pagination Links**:
+
+   Add the pagination links to your HTML file (`index.html`), and make sure they point to the `getData.php` script.
+
+   ```html
+   <!-- Pagination Links -->
+   <ul class="pagination pagination-lg">
+       <?php
+       // Calculate total number of pages
+       $sql = "SELECT COUNT(*) AS total FROM my_content";
+       $result = $conn->query($sql);
+       $row = $result->fetch_assoc();
+       $totalPages = ceil($row["total"] / $itemsPerPage);
+
+       // Generate pagination links
+       for ($i = 1; $i <= $totalPages; $i++) {
+           echo '<li class="page-item"><a class="page-link" href="getData.php?page=' . $i . '">' . $i . '</a></li>';
+       }
+       ?>
+   </ul>
+   ```
+
+   This will generate pagination links based on the total number of pages.
+
+Remember to adjust the database credentials and table names to match your specific setup. This example assumes that you have a database set up and configured.
