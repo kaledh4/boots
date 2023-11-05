@@ -13,7 +13,7 @@
 
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">FoFo's Stories</a>
+        <a class="navbar-brand" href="#">ICON</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="boots/admin.html">Writer</a>
+                    <a class="nav-link" href="admin.html">Writer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="boots/map.html">MAP</a>
+                    <a class="nav-link" href="index.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="boots/stroy.html">Story Line</a>
+                    <a class="nav-link" href="about.html">About</a>
                 </li>
             </ul>
         </div>
@@ -36,7 +36,7 @@
     <!-- Banner -->
     <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
-            <h1 class="display-4">FoFo's Books</h1>
+            <h1 class="display-4">ICON</h1>
             <p class="lead">Graphic Artist - Story Teller - New Beginning</p>
         </div>
     </div>
@@ -44,20 +44,85 @@
     <!-- Content Section -->
     <div class="container mt-4" id="contentSection">
         <!-- Content will be dynamically generated here using JavaScript -->
+        <!-- Content Section -->
+<div class="container mt-4" id="contentSection">
+    <!-- Content will be dynamically generated here using JavaScript -->
+</div>
+
+<script>
+    const data = [
+        const data = [
+    { heading: 'العنوان 1', text: 'كان هناك أسد شجاع يدعى علي. كان يحمي المملكة ويحترمه الجميع. في أحد الأيام، ظهر تنين ضخم يهدد الأرض. قرر علي أن يواجهه ويدافع عن مملكته. بمهارته وشجاعته، نجح في هزيمة التنين واستعاد السلام.' },
+    { heading: 'العنوان 2', text: 'في غابة سحرية عاشت قطة سوداء تدعى مياو. كانت تمتلك قدرات خاصة وسحرية. كانت تساعد الحيوانات الضعيفة وتحميها. في يوم من الأيام، توجهت مياو في مهمة لإنقاذ وحيد القرن الذهبي. بفضل سحرها، نجحت في إنقاذه.' },
+    { heading: 'العنوان 3', text: 'كان هناك أمير صغير اسمه علي. كان يحلم بالمغامرات والسفر حول العالم. في يوم من الأيام، وجد خريطة قديمة في قبو القصر. قرر أن يبدأ رحلته للبحث عن الكنز الضائع. مرت الأيام واكتشف أماكن لم يخطر على باله.' },
+    { heading: 'العنوان 4', text: 'في قرية صغيرة عاشت فتاة اسمها نور. كانت لديها قلب طيب وعيون تشع بالأمل. كانت تذهب يومياً لتزرع الأزهار في حقلها الصغير. في يوم من الأيام، وجدت بذرة غريبة وغامضة. قررت زراعتها ورعايتها بعناية.' },
+    { heading: 'العنوان 5', text: 'هناك كانت فتاة صغيرة تدعى ليلى. كانت تحب الزهور وتروي قصصاً للطيور. في أحد الأيام، وجدت بيضة صغيرة في الحديقة. قررت أن تعتني بها حتى تفقس. بعد أسبوع، خرجت منها طائرة صغيرة بألوان جميلة.' },
+    { heading: 'العنوان 6', text: 'كان هناك وردة جميلة تدعى زهراء. كانت تنمو في حديقة صغيرة خلف المنزل. في أحد الأيام، أتى فتى صغير يدعى أحمد ووقف أمام الزهراء بدهشة. لطالما أحب الورود وحلم بأن يمتلك واحدة مثلها. قرر أن يزرع وردة جميلة بنفسه في فناء منزله. بعد أسابيع، ازدهرت الوردة الجديدة وأضاءت حياة أحمد بجمالها.' },
+    ];
+
+    let currentPage = 1;
+    const itemsPerPage = 1;
+
+    function changePage(step) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+
+        currentPage += step;
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        displayContent(currentPage);
+    }
+
+    function fetchData(pageNumber) {
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedData = data.slice(startIndex, endIndex);
+
+        return paginatedData;
+    }
+
+    function displayContent(pageNumber) {
+        const contentSection = document.getElementById('contentSection');
+        const paginatedData = fetchData(pageNumber);
+
+        contentSection.innerHTML = '';
+
+        paginatedData.forEach(item => {
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('mt-4');
+            contentDiv.innerHTML = `
+                <h3>${item.heading}</h3>
+                <p>${item.text}</p>
+            `;
+            contentSection.appendChild(contentDiv);
+        });
+    }
+
+    displayContent(currentPage);
+</script>
+
     </div>
 
     <!-- Pagination Section -->
     <div class="container text-center mt-3" id="paginationSection">
         <ul class="pagination pagination-sm">
             <li class="page-item" id="previousPage">
-                <a class="page-link" href="#" aria-label="Previous" onclick="changePage(-1); return false;">
-                    <span aria-hidden="true">&laquo;</span>
+                <a class="page-link" href="#" aria-label="Previous"
+                    onclick="changePage(-1); return false;">
+                    <span aria-hidden="true">«</span>
                 </a>
             </li>
             <!-- Page numbers will be dynamically generated here using JavaScript -->
             <li class="page-item" id="nextPage">
-                <a class="page-link" href="#" aria-label="Next" onclick="changePage(1); return false;">
-                    <span aria-hidden="true">&raquo;</span>
+                <a class="page-link" href="#" aria-label="Next"
+                    onclick="changePage(1); return false;">
+                    <span aria-hidden="true">»</span>
                 </a>
             </li>
         </ul>
@@ -65,82 +130,19 @@
 
     <!-- Footer -->
     <div class="bg-dark text-white text-center p-3">
-        <div>Around the Web</div>
-        <div>About Story</div>
-        <div>Story is a free to use, MIT licensed created by Medo.</div>
-        <div>Copyright © Story 2023</div>
+        <div>Map</div>
+        <div>Story LINE</div>
+        <div>Copyright © Story 2024</div>
     </div>
 
     <!-- Link to Bootstrap JS and Popper.js (dependency for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        let currentPage = 1;
-
-        function changePage(step) {
-            const totalPages = 6; // Set the total number of pages here
-            currentPage += step;
-
-            if (currentPage < 1) {
-                currentPage = 1;
-            }
-
-            if (currentPage > totalPages) {
-                currentPage = totalPages;
-            }
-
-            displayContent(currentPage);
-        }
-
-        function fetchData(pageNumber) {
-const data = [
-    { heading: 'العنوان 1', text: 'كان هناك أسد شجاع يدعى علي. كان يحمي المملكة ويحترمه الجميع. في أحد الأيام، ظهر تنين ضخم يهدد الأرض. قرر علي أن يواجهه ويدافع عن مملكته. بمهارته وشجاعته، نجح في هزيمة التنين واستعاد السلام.' },
-    { heading: 'العنوان 2', text: 'في غابة سحرية عاشت قطة سوداء تدعى مياو. كانت تمتلك قدرات خاصة وسحرية. كانت تساعد الحيوانات الضعيفة وتحميها. في يوم من الأيام، توجهت مياو في مهمة لإنقاذ وحيد القرن الذهبي. بفضل سحرها، نجحت في إنقاذه.' },
-    { heading: 'العنوان 3', text: 'كان هناك أمير صغير اسمه علي. كان يحلم بالمغامرات والسفر حول العالم. في يوم من الأيام، وجد خريطة قديمة في قبو القصر. قرر أن يبدأ رحلته للبحث عن الكنز الضائع. مرت الأيام واكتشف أماكن لم يخطر على باله.' },
-    { heading: 'العنوان 4', text: 'في قرية صغيرة عاشت فتاة اسمها نور. كانت لديها قلب طيب وعيون تشع بالأمل. كانت تذهب يومياً لتزرع الأزهار في حقلها الصغير. في يوم من الأيام، وجدت بذرة غريبة وغامضة. قررت زراعتها ورعايتها بعناية.' },
-    { heading: 'العنوان 5', text: 'هناك كانت فتاة صغيرة تدعى ليلى. كانت تحب الزهور وتروي قصصاً للطيور. في أحد الأيام، وجدت بيضة صغيرة في الحديقة. قررت أن تعتني بها حتى تفقس. بعد أسبوع، خرجت منها طائرة صغيرة بألوان جميلة.' },
-    { heading: 'العنوان 6', text: 'كان هناك وردة جميلة تدعى زهراء. كانت تنمو في حديقة صغيرة خلف المنزل. في أحد الأيام، أتى فتى صغير يدعى أحمد ووقف أمام الزهراء بدهشة. لطالما أحب الورود وحلم بأن يمتلك واحدة مثلها. قرر أن يزرع وردة جميلة بنفسه في فناء منزله. بعد أسابيع، ازدهرت الوردة الجديدة وأضاءت حياة أحمد بجمالها.' },
-];
-
-const StoryComponent = ({ heading, text }) => (
-  <div style={{ textAlign: 'right', direction: 'rtl' }}>
-    <h3>{heading}</h3>
-    <p>{text}</p>
-  </div>
-);
-
-data.map((story, index) => (
-  <StoryComponent key={index} heading={story.heading} text={story.text} />
-));
-
-            const itemsPerPage = 1;
-            const startIndex = (pageNumber - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedData = data.slice(startIndex, endIndex);
-
-            return paginatedData;
-        }
-
-        function displayContent(pageNumber) {
-            const contentSection = document.getElementById('contentSection');
-            const data = fetchData(pageNumber);
-
-            contentSection.innerHTML = '';
-
-            data.forEach(item => {
-                const contentDiv = document.createElement('div');
-                contentDiv.classList.add('mt-4');
-                contentDiv.innerHTML = `
-                    <h3>${item.heading}</h3>
-                    <p>${item.text}</p>
-                `;
-                contentSection.appendChild(contentDiv);
-            });
-        }
-
-        displayContent(1);
+        // JavaScript code here
     </script>
 
 </body>
