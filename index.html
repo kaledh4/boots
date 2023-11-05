@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>FoFo's Stories</title>
-    <!-- Add Bootstrap CSS link -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add custom CSS for dark mode -->
-    <style>
-        body {
-            background-color: #222;
-            color: #fff;
-        }
-
-        .navbar {
-            background-color: #333;
-        }
-
-        .navbar-dark .navbar-nav .nav-link {
-            color: #fff;
-        }
-
-        .pagination {
-            justify-content: center;
-        }
-    </style>
+    <!-- Link to Bootstrap CSS and Darkly theme from Bootswatch -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">FoFo's Stories</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,101 +21,115 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Writer</a>
+                    <a class="nav-link" href="admin.html">Writer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">/admin.html</a>
+                    <a class="nav-link" href="index.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="about.html">About</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <!-- Data Page -->
-    <div class="container">
-        <div class="text-right"><!-- Replace the following with code to read data from your API --></div>
-        <div class="row justify-content-center">
-            <div class="col-md-8" id="content">
-                <!-- Content will be added here using JavaScript -->
-            </div>
+    <!-- Banner -->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1 class="display-4">FoFo's Books</h1>
+            <p class="lead">Graphic Artist - Story Teller - New Beginning</p>
         </div>
-        <div class="row justify-content-center">
-            <ul class="pagination pagination-sm" id="pagination">
-                <!-- Pagination will be added here using JavaScript -->
-            </ul>
-        </div>
-        <!-- Add more rows as needed -->
     </div>
 
-    <!-- Add Bootstrap JS and Popper.js (dependency for Bootstrap) links -->
+    <!-- Content Section -->
+    <div class="container mt-4" id="contentSection">
+        <!-- Content will be dynamically generated here using JavaScript -->
+    </div>
+
+    <!-- Pagination Section -->
+    <div class="container text-center mt-3" id="paginationSection">
+        <ul class="pagination pagination-sm">
+            <li class="page-item" id="previousPage">
+                <a class="page-link" href="#" aria-label="Previous" onclick="changePage(-1); return false;">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <!-- Page numbers will be dynamically generated here using JavaScript -->
+            <li class="page-item" id="nextPage">
+                <a class="page-link" href="#" aria-label="Next" onclick="changePage(1); return false;">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-dark text-white text-center p-3">
+        <div>Around the Web</div>
+        <div>About Story</div>
+        <div>Story is a free to use, MIT licensed created by Medo.</div>
+        <div>Copyright © Story 2023</div>
+    </div>
+
+    <!-- Link to Bootstrap JS and Popper.js (dependency for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Custom JavaScript to fetch data from API -->
     <script>
-        // Fetch data from API
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then(data => {
-                const contentDiv = document.getElementById('content');
-                const paginationUl = document.getElementById('pagination');
+        let currentPage = 1;
 
-                // Function to display content
-                function displayContent(pageNumber) {
-                    const itemsPerPage = 5;
-                    const startIndex = (pageNumber - 1) * itemsPerPage;
-                    const endIndex = startIndex + itemsPerPage;
+        function changePage(step) {
+            const totalPages = 6; // Set the total number of pages here
+            currentPage += step;
 
-                    contentDiv.innerHTML = '';
+            if (currentPage < 1) {
+                currentPage = 1;
+            }
 
-                    for (let i = startIndex; i < endIndex; i++) {
-                        if (data[i]) {
-                            const post = data[i];
-                            const card = document.createElement('div');
-                            card.classList.add('card', 'mb-3');
-                            card.innerHTML = `
-                                <div class="card-body">
-                                    <h5 class="card-title">${post.title}</h5>
-                                    <p class="card-text">${post.body}</p>
-                                </div>
-                            `;
-                            contentDiv.appendChild(card);
-                        }
-                    }
-                }
+            if (currentPage > totalPages) {
+                currentPage = totalPages;
+            }
 
-                // Function to generate pagination links
-                function generatePaginationLinks() {
-                    const totalPages = Math.ceil(data.length / 5);
+            displayContent(currentPage);
+        }
 
-                    for (let i = 1; i <= totalPages; i++) {
-                        const li = document.createElement('li');
-                        li.classList.add('page-item');
-                        if (i === 1) {
-                            li.classList.add('active');
-                        }
-                        li.innerHTML = `
-                            <a class="page-link" href="#">${i}</a>
-                        `;
-                        paginationUl.appendChild(li);
+        function fetchData(pageNumber) {
+            const data = [
+                { heading: 'Heading 1', text: 'Text for Heading 1' },
+                { heading: 'Heading 2', text: 'Text for Heading 2' },
+                { heading: 'Heading 3', text: 'Text for Heading 3' },
+                { heading: 'Heading 4', text: 'Text for Heading 4' },
+                { heading: 'Heading 5', text: 'Text for Heading 5' },
+                { heading: 'Heading 6', text: 'Text for Heading 6' },
+            ];
 
-                        li.addEventListener('click', function () {
-                            const pageNumber = parseInt(this.innerText);
-                            const activePage = paginationUl.querySelector('.active');
-                            activePage.classList.remove('active');
-                            this.classList.add('active');
-                            displayContent(pageNumber);
-                        });
-                    }
-                }
+            const itemsPerPage = 1;
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedData = data.slice(startIndex, endIndex);
 
-                displayContent(1);
-                generatePaginationLinks();
-            })
-            .catch(error => console.error('Error:', error));
+            return paginatedData;
+        }
+
+        function displayContent(pageNumber) {
+            const contentSection = document.getElementById('contentSection');
+            const data = fetchData(pageNumber);
+
+            contentSection.innerHTML = '';
+
+            data.forEach(item => {
+                const contentDiv = document.createElement('div');
+                contentDiv.classList.add('mt-4');
+                contentDiv.innerHTML = `
+                    <h3>${item.heading}</h3>
+                    <p>${item.text}</p>
+                `;
+                contentSection.appendChild(contentDiv);
+            });
+        }
+
+        displayContent(1);
     </script>
 
 </body>
