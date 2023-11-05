@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add custom CSS for dark mode -->
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: #333;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .banner {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .footer {
+            background-color: #333;
+            text-align: center;
+            padding: 20px 0;
+            color: #fff;
+        }
+
+        .dialog-box {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .form-group label {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#addDataModal">Add New Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Dialog Box for Adding New Data -->
+<div class="dialog-box">
+    <h5 class="modal-title">Add New Data</h5>
+    <form>
+        <div class="form-group">
+            <label for="heading">Heading</label>
+            <input type="text" class="form-control" id="heading" placeholder="Enter heading">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <textarea class="form-control" id="text" rows="3" placeholder="Enter text"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary">Send</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="container">
+        <h4>Around the Web</h4>
+        <p>About Story</p>
+        <p>Story is a free to use, MIT licensed created by Medo.</p>
+        <p>Copyright © Story 2023</p>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js (dependency for Bootstrap) links -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
