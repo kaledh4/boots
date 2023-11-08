@@ -1,0 +1,16 @@
+    <?php
+    include 'connect.php';
+    
+    $sql = "SELECT * FROM your_table_name"; // Replace with your actual table name
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<div class='page'>" . $row["content"] . "</div>";
+        }
+    } else {
+        echo "0 results";
+    }
+
+    $conn->close();
+    ?>
